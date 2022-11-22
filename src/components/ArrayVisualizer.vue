@@ -1,5 +1,5 @@
 <template>
-  <h2>Array Visualizer</h2>
+  <h2>{{name ? name : "Array Visualizer"}}</h2>
   <div class="array-container">
     <div v-for="(el, ind) in arr" class="array-el">
       <div class="indice">{{ind}}</div>
@@ -15,6 +15,10 @@ defineProps({
     type: Array,
     required: true,
   },
+  name: {
+    type: String,
+    required: false
+  }
 });
 </script>
 
@@ -34,8 +38,8 @@ defineProps({
 }
 .indice{
     position: absolute;
-    left:0;
-    top: 0;
+    left:2px;
+    top: 1px;
 }
 .internal-data{
     margin:auto;
