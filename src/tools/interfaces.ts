@@ -7,5 +7,5 @@ export interface IArrow {
 
 export interface IArrayElement {
   value: number;
-  hightlighted: boolean;
+  highlighted: boolean;
 }

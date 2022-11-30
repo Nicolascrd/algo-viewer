@@ -1,12 +1,12 @@
 import { expect, test } from "vitest";
 import { mount } from "@vue/test-utils";
 
-import ArraySorter from "../../src/components/ArraySorter.vue";
+import BubbleSort from "../../src/components/BubbleSort.vue";
 
 test("mount array sorter", async () => {
-  expect(ArraySorter).toBeTruthy();
+  expect(BubbleSort).toBeTruthy();
 
-  const wrapper = mount(ArraySorter);
+  const wrapper = mount(BubbleSort);
 
   expect(wrapper.text()).toContain("Input Array :");
 
@@ -27,9 +27,9 @@ test("mount array sorter", async () => {
 });
 
 test("test bubble sort", async () => {
-  expect(ArraySorter).toBeTruthy();
+  expect(BubbleSort).toBeTruthy();
 
-  const wrapper = mount(ArraySorter);
+  const wrapper = mount(BubbleSort);
 
   expect(wrapper.text()).toContain("Input Array :");
 
@@ -43,3 +43,5 @@ test("test bubble sort", async () => {
     expect(wrapper.vm.array[i] < wrapper.vm.array[i + 1]).toBe(true);
   }
 });
+
+

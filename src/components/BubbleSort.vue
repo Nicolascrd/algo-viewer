@@ -1,4 +1,22 @@
 <template>
+  <div class="buttons">
+    <button
+      @click="next"
+      id="next"
+      :disabled="reachedEnd"
+      class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
+    >
+      Next
+    </button>
+    <button
+      @click="end"
+      id="end"
+      :disabled="reachedEnd"
+      class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
+    >
+      End
+    </button>
+  </div>
   <div class="input-arr">
     <span class="input-title">Input Array :</span>
 
@@ -22,7 +40,7 @@
   </div>
   <div class="array-vi">
     <ArrayVisualizer
-      name="Array Vi"
+      name="Bubble Sort"
       :arr="highlightedArray"
       :arrowPositions="[arrowPosition]"
       :highlightedSquares="[indexInsertSort, indexInsertSort + 1]"
@@ -30,30 +48,12 @@
     >
     </ArrayVisualizer>
   </div>
-  <div class="buttons">
-    <button
-      @click="next"
-      id="next"
-      :disabled="reachedEnd"
-      class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
-    >
-      Next
-    </button>
-    <button
-      @click="end"
-      id="end"
-      :disabled="reachedEnd"
-      class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
-    >
-      End
-    </button>
-  </div>
 </template>
 
 <script setup lang="ts">
 import { reactive, computed, ref, onMounted } from "vue";
 import ArrayVisualizer from "./ArrayVisualizer.vue";
-import { parseRawStringArray } from "./../tools/parser";
+import { parseRawStringArray } from "../tools/parser";
 import { IArrayElement } from "../tools/interfaces";
 const testArray = reactive([9, 7, 3, 2, -2, -9]);
 let indexInsertSort = ref(0);
@@ -71,7 +71,7 @@ const submit = function () {
   array.value = parseRawStringArray(arrayRawInput);
   bubbleNeeded.value = array.value.length - 1;
   indexInsertSort.value = 0;
-  bubbleNumber.value = 0
+  bubbleNumber.value = 0;
 };
 
 const next = function () {
@@ -120,7 +120,7 @@ const highlightedArray = computed(() => {
   for (let i = 0; i < array.value.length; i++) {
     res.push({
       value: array.value[i],
-      hightlighted:
+      highlighted:
         bubbleNumber.value < bubbleNeeded.value &&
         (i === indexInsertSort.value || i === indexInsertSort.value + 1),
     });
@@ -150,8 +150,10 @@ const highlightedArray = computed(() => {
 }
 
 .buttons {
+  position: fixed;
+  left: calc(50% - 100px); /* 50% - width / 2 */
   margin: auto;
-  margin-top: 50px;
+  top: 500px;
   width: 200px;
   display: flex;
   justify-content: space-between;

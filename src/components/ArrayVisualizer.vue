@@ -6,7 +6,7 @@
         v-for="(el, ind) in arr"
         class="array-el"
         :class="{
-          'highlighted-array-el': el.hightlighted,
+          'highlighted-array-el': el.highlighted,
         }"
         :id="arrayElID + String(ind)"
       >
@@ -14,7 +14,7 @@
         <div class="internal-data">{{ el.value }}</div>
       </div>
     </div>
-    <div class="svg-container" v-if="arrows.length && arrows[0].height">
+    <div class="svg-container" v-if="arrows.length">
       <ArrowsArray :arrows="arrows"></ArrowsArray>
     </div>
     <div class="comments-container" v-if="comments">
@@ -26,7 +26,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, computed, ref, watch, nextTick } from "vue";
+import { defineProps, ref, watch, nextTick } from "vue";
 import ArrowsArray from "./ArrowsArray.vue";
 import { IArrow, IArrayElement } from "./../tools/interfaces";
 
@@ -108,16 +108,18 @@ const updateBoxPositions = function () {
 };
 
 const updateArrows = function () {
-  const res : Array<IArrow> = [];
+  const res: Array<IArrow> = [];
   props.arrowPositions?.forEach((element, index) => {
-    res.push(generateArrowPosition(standardHeight * (index + 1), element)); // index + 1 because we want height > 0 for all arrows
+    let arrPos = generateArrowPosition(standardHeight * (index + 1), element); // index + 1 because we want height > 0 for all arrows
+    if (arrPos.height) {
+      res.push(arrPos);
+    }
   });
 
   arrows.value = res;
 };
 
 const generateArrowPosition = function (height: number, arr: Array<number>) {
-
   if (arr.length != 2) {
     console.error(
       "Array to generate arrow position should be of length 2 but has length " +
@@ -184,7 +186,7 @@ const generateArrowPosition = function (height: number, arr: Array<number>) {
   margin: auto;
   text-align: center;
 }
-.comments-container{
+.comments-container {
   margin: 10px 0 5px 10px;
 }
 </style>

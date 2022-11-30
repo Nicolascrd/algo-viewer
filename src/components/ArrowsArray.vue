@@ -13,7 +13,6 @@
         stroke="hsl(230, 55%, 40%)"
         fill="none"
         stroke-linecap="square"
-        transform="matrix(1,0,0,1,-8,0)"
       >
         <polyline
           :points="points(arrow)"
@@ -55,12 +54,12 @@ const svgHeight = computed(() => {
 });
 
 const points = function (arr: IArrow) {
-  let x1 = String(arr.start);
-  let x2 = String(arr.end);
-  let y1 = String(5);
-  let y2 = String(5 + arr.height);
+  let x1 = arr.start;
+  let x2 = arr.end +5;
+  let y1 = 5;
+  let y2 = 5 + arr.height;
 
-  return `${x1},${y1} ${x1},${y2} ${x2},${y2} ${x2},${y1}`;
+  return `${x1},${y1} ${x1},${y2} ${x2},${y2} ${x2},${y1 + 2}`; // + 2 is space for the arrow
 };
 </script>
 

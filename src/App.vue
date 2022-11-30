@@ -1,9 +1,9 @@
 <template>
-  <ArraySorter></ArraySorter>
+  <BubbleSort></BubbleSort>
 </template>
 
 <script setup lang="ts">
-import ArraySorter from './components/ArraySorter.vue';
+import BubbleSort from './components/BubbleSort.vue';
 
 
 </script>
