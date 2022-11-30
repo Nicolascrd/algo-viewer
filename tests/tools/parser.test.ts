@@ -1,4 +1,4 @@
-import { parseRawStringArray } from "./../src/tools/parser";
+import { parseRawStringArray } from "../../src/tools/parser";
 import {test, expect} from "vitest"
 
 test("parsing raw string array", () => {

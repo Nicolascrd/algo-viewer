@@ -21,11 +21,19 @@
     </button>
   </div>
   <div class="array-vi">
-    <ArrayVisualizer name="Array Vi" :arr="array"> </ArrayVisualizer>
+    <ArrayVisualizer
+      name="Array Vi"
+      :arr="highlightedArray"
+      :arrowPositions="[arrowPosition]"
+      :highlightedSquares="[indexInsertSort, indexInsertSort + 1]"
+      :comments="['Bubble Number: ' + bubbleNumber + ' / ' + bubbleNeeded]"
+    >
+    </ArrayVisualizer>
   </div>
   <div class="buttons">
     <button
       @click="next"
+      id="next"
       :disabled="reachedEnd"
       class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
     >
@@ -33,6 +41,7 @@
     </button>
     <button
       @click="end"
+      id="end"
       :disabled="reachedEnd"
       class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
     >
@@ -45,9 +54,11 @@
 import { reactive, computed, ref, onMounted } from "vue";
 import ArrayVisualizer from "./ArrayVisualizer.vue";
 import { parseRawStringArray } from "./../tools/parser";
+import { IArrayElement } from "../tools/interfaces";
 const testArray = reactive([9, 7, 3, 2, -2, -9]);
 let indexInsertSort = ref(0);
-let maxLoopNeeded = ref(testArray.length - 1);
+let bubbleNumber = ref(0);
+let bubbleNeeded = ref(testArray.length - 1);
 let arrayRawInput = "";
 
 const array = ref([] as Array<number>);
@@ -58,29 +69,63 @@ onMounted(() => {
 
 const submit = function () {
   array.value = parseRawStringArray(arrayRawInput);
-  maxLoopNeeded.value = array.value.length - 1;
+  bubbleNeeded.value = array.value.length - 1;
+  indexInsertSort.value = 0;
+  bubbleNumber.value = 0
 };
 
 const next = function () {
-  for (let i = 0; i < array.value.length - 1; i++) {
-    if (array.value[i] > array.value[i + 1]) {
-      [array.value[i], array.value[i + 1]] = [
-        array.value[i + 1],
-        array.value[i],
-      ];
-    }
+  if (bubbleNumber.value > bubbleNeeded.value) {
+    return;
+  }
+  if (
+    array.value[indexInsertSort.value] > array.value[indexInsertSort.value + 1]
+  ) {
+    [
+      array.value[indexInsertSort.value],
+      array.value[indexInsertSort.value + 1],
+    ] = [
+      array.value[indexInsertSort.value + 1],
+      array.value[indexInsertSort.value],
+    ];
   }
   indexInsertSort.value++;
+  if (indexInsertSort.value >= array.value.length - 1 - bubbleNumber.value) {
+    indexInsertSort.value = 0;
+    bubbleNumber.value += 1;
+  }
 };
 
 const end = function () {
-  while (indexInsertSort.value < maxLoopNeeded.value) {
+  while (bubbleNumber.value < bubbleNeeded.value) {
     next();
   }
 };
 
 const reachedEnd = computed(() => {
-  return indexInsertSort.value == maxLoopNeeded.value;
+  return bubbleNeeded.value == bubbleNumber.value;
+});
+
+const arrowPosition = computed(() => {
+  if (
+    array.value[indexInsertSort.value] > array.value[indexInsertSort.value + 1]
+  ) {
+    return [indexInsertSort.value, indexInsertSort.value + 1];
+  }
+  return [];
+});
+
+const highlightedArray = computed(() => {
+  const res = [] as Array<IArrayElement>;
+  for (let i = 0; i < array.value.length; i++) {
+    res.push({
+      value: array.value[i],
+      hightlighted:
+        bubbleNumber.value < bubbleNeeded.value &&
+        (i === indexInsertSort.value || i === indexInsertSort.value + 1),
+    });
+  }
+  return res;
 });
 </script>
 
