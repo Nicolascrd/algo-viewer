@@ -1,0 +1,13 @@
+on: 
+  push:
+    branches:
+    - master
+jobs:
+  test:
+    name: npm install, build and test (vitest)
+    runs-on: [ubuntu-latest, windows-latest, macOS-latest]
+    steps:
+      - run: npm install
+      - run: npm run build --if-present
+      - run: npm test
+    
