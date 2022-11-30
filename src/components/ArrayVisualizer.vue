@@ -26,7 +26,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, ref, watch, nextTick } from "vue";
+import { ref, watch, nextTick } from "vue";
 import ArrowsArray from "./ArrowsArray.vue";
 import { IArrow, IArrayElement } from "./../tools/interfaces";
 

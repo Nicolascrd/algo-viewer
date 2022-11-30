@@ -16,6 +16,13 @@
     >
       End
     </button>
+    <button
+      @click="reset"
+      id="reset"
+      class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
+    >
+      Reset
+    </button>
   </div>
   <div class="input-arr">
     <span class="input-title">Input Array :</span>
@@ -55,16 +62,17 @@ import { reactive, computed, ref, onMounted } from "vue";
 import ArrayVisualizer from "./ArrayVisualizer.vue";
 import { parseRawStringArray } from "../tools/parser";
 import { IArrayElement } from "../tools/interfaces";
-const testArray = reactive([9, 7, 3, 2, -2, -9]);
+const testArray = "[9, 7, 3, 2, -2, -9]";
 let indexInsertSort = ref(0);
 let bubbleNumber = ref(0);
-let bubbleNeeded = ref(testArray.length - 1);
+let bubbleNeeded = ref(0);
 let arrayRawInput = "";
 
 const array = ref([] as Array<number>);
 
 onMounted(() => {
-  array.value = testArray;
+  array.value = JSON.parse(testArray); // copy;
+  bubbleNeeded.value = array.value.length - 1;
 });
 
 const submit = function () {
@@ -100,6 +108,13 @@ const end = function () {
   while (bubbleNumber.value < bubbleNeeded.value) {
     next();
   }
+};
+
+const reset = function () {
+  array.value = JSON.parse(testArray);
+  bubbleNeeded.value = array.value.length - 1;
+  bubbleNumber.value = 0;
+  indexInsertSort.value = 0;
 };
 
 const reachedEnd = computed(() => {
@@ -151,10 +166,10 @@ const highlightedArray = computed(() => {
 
 .buttons {
   position: fixed;
-  left: calc(50% - 100px); /* 50% - width / 2 */
+  left: calc(50% - 150px); /* 50% - width / 2 */
   margin: auto;
   top: 500px;
-  width: 200px;
+  width: 300px;
   display: flex;
   justify-content: space-between;
 }

@@ -6,7 +6,7 @@ import BubbleSort from "../../src/components/BubbleSort.vue";
 test("mount array sorter", async () => {
   expect(BubbleSort).toBeTruthy();
 
-  const wrapper = mount(BubbleSort);
+  const wrapper = await mount(BubbleSort);
 
   expect(wrapper.text()).toContain("Input Array :");
 
@@ -24,12 +24,15 @@ test("mount array sorter", async () => {
   nextButton.trigger("click");
 
   expect(wrapper.vm.reachedEnd).toBe(true);
+
+  // const resetButton = wrapper.get("#reset").trigger("click");
+  // expect(wrapper.vm.array).toStrictEqual([9, 7, 3, 2, -2, 9]);
 });
 
 test("test bubble sort", async () => {
   expect(BubbleSort).toBeTruthy();
 
-  const wrapper = mount(BubbleSort);
+  const wrapper = await mount(BubbleSort);
 
   expect(wrapper.text()).toContain("Input Array :");
 
@@ -43,5 +46,3 @@ test("test bubble sort", async () => {
     expect(wrapper.vm.array[i] < wrapper.vm.array[i + 1]).toBe(true);
   }
 });
-
-

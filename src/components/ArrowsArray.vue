@@ -40,7 +40,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, computed } from "vue";
+import { computed } from "vue";
 import { IArrow } from "./../tools/interfaces";
 const props = defineProps({
   arrows: {
