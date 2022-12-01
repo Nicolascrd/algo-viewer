@@ -49,7 +49,7 @@
     <ArrayVisualizer
       name="Bubble Sort"
       :arr="highlightedArray"
-      :arrowPositions="[arrowPosition]"
+      :arrowPositions="arrowPosition.length == 0 ? [] : [arrowPosition]"
       :highlightedSquares="[indexInsertSort, indexInsertSort + 1]"
       :comments="['Bubble Number: ' + bubbleNumber + ' / ' + bubbleNeeded]"
     >

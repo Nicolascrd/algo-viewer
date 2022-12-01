@@ -109,7 +109,16 @@ const updateBoxPositions = function () {
 
 const updateArrows = function () {
   const res: Array<IArrow> = [];
-  props.arrowPositions?.forEach((element, index) => {
+  if (props.arrowPositions == undefined) {
+    return;
+  }
+  props.arrowPositions.forEach((element, index) => {
+    if (element.length != 2) {
+      console.error(
+        `Arrow position array should be of length 2 but has length ${element.length} at position ${index}`
+      );
+      return;
+    }
     let arrPos = generateArrowPosition(standardHeight * (index + 1), element); // index + 1 because we want height > 0 for all arrows
     if (arrPos.height) {
       res.push(arrPos);
@@ -128,16 +137,16 @@ const generateArrowPosition = function (height: number, arr: Array<number>) {
   }
   let startRec = boxPositions.value[arr[0]];
   if (!startRec) {
-    console.error(
-      "Cannot get position of square with id: " + arrayElID + String(arr[0])
+    console.log(
+      "Cannot get position of square with id: " + arrayElID + String(arr[0]) // can happen as we need one mount to know position of the boxes and draw arrows
     );
     return {} as IArrow;
   }
   let start = (startRec.left + startRec.right) / 2;
   let endRec = boxPositions.value[arr[1]];
   if (!endRec) {
-    console.error(
-      "Cannot get position of square with id: " + arrayElID + String(arr[1])
+    console.log(
+      "Cannot get position of square with id: " + arrayElID + String(arr[1]) // can happen as we need one mount to know position of the boxes and draw arrows
     );
     return {} as IArrow;
   }
