@@ -4,33 +4,21 @@
       @click="next"
       id="next"
       :disabled="reachedEnd"
-      class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
+      class="bottom-button"
     >
       Next
     </button>
-    <button
-      @click="end"
-      id="end"
-      :disabled="reachedEnd"
-      class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
-    >
+    <button @click="end" id="end" :disabled="reachedEnd" class="bottom-button">
       End
     </button>
-    <button
-      @click="reset"
-      id="reset"
-      class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
-    >
-      Reset
-    </button>
+    <button @click="reset" id="reset" class="bottom-button">Reset</button>
   </div>
   <div class="input-arr">
     <span class="input-title">Input Array :</span>
 
     <input
       type="text"
-      id="first_name"
-      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+      class="input-array"
       placeholder="9, 7, 3, 2, -2, -9"
       required
       v-model="arrayRawInput"
@@ -38,7 +26,7 @@
 
     <button
       type="submit"
-      class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 ml-6 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      class="submit-button"
       @click="submit"
       id="submit-button"
     >
@@ -180,5 +168,51 @@ button:disabled {
 
 .input-title {
   width: 100px;
+}
+
+.bottom-button {
+  color: rgb(31 41 55);
+  font-weight: 700;
+  padding: 0.5em 1em 0.5em 1em;
+  background-color: rgb(209 213 219);
+  border-radius: 0.25em;
+  cursor: pointer;
+}
+.bottom-button:hover {
+  background-color: rgb(156 163 175);
+}
+
+.input-array {
+  color: rgb(17 24 39);
+  font-size: 0.875em;
+  line-height: 1.25em;
+  padding: 0.625em;
+  background-color: rgb(249 250 251);
+  border: 1px solid rgb(209 213 219);
+  border-radius: 0.5em;
+}
+
+.input-array:focus {
+  border-color: rgb(59 130 246);
+}
+
+.submit-button {
+  color: rgb(255 255 255);
+  font-weight: 500;
+  font-size: 0.875em;
+  line-height: 1.25em;
+  text-align: center;
+  padding: 0.625em 1.25em;
+  background-color: rgb(29 78 216);
+  margin-left: 1.5em;
+  border-radius: 0.5em;
+  cursor: pointer;
+}
+
+.submit-button:focus {
+  border-color: rgb(147 197 253);
+}
+.submit-button:hover {
+  background-color: rgb(30 64 175);
 }
 </style>
