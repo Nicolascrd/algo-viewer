@@ -133,10 +133,6 @@ const highlightedArray = computed(() => {
 </script>
 
 <style scoped>
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 .input-arr {
   width: 600px;
   margin: auto;
