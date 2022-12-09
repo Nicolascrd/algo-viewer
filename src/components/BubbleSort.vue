@@ -46,7 +46,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, computed, ref, onMounted } from "vue";
+import { computed, ref, onMounted } from "vue";
 import ArrayVisualizer from "./ArrayVisualizer.vue";
 import { parseRawStringArray } from "../tools/parser";
 import { IArrayElement } from "../tools/interfaces";

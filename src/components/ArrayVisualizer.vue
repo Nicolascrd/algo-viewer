@@ -1,7 +1,7 @@
 <template>
   <h2>{{ name ? name : "Array Visualizer" }}</h2>
   <div>
-    <div class="array-container" id="array-cont">
+    <div class="array-container" id="array-cont" ref="arrayCont">
       <div
         v-for="(el, ind) in arr"
         class="array-el"
@@ -31,6 +31,7 @@ import ArrowsArray from "./ArrowsArray.vue";
 import { IArrow, IArrayElement } from "./../tools/interfaces";
 
 const arrayElID = "array-el-";
+const arrayCont = ref<HTMLElement | undefined | null>(null);
 const standardHeight = 15;
 
 interface IPosition {
@@ -84,17 +85,20 @@ const updateBoxPositions = function () {
   if (props.arrowPositions == undefined) {
     return;
   }
-  let leftShift = document
-    .getElementById("array-cont")
-    ?.getBoundingClientRect().left;
+
+  let container = arrayCont.value;
+
+  if (container == null) {
+    return;
+  }
+
+  let leftShift = container?.getBoundingClientRect().left;
   if (leftShift == undefined) {
     return;
   }
   let bp = [] as Array<IPosition>;
   for (let i = 0; i < props.arr.length; i++) {
-    let rect = document
-      .getElementById(arrayElID + String(i))
-      ?.getBoundingClientRect();
+    let rect = container.children[i].getBoundingClientRect();
     if (!rect) {
       return;
     }
